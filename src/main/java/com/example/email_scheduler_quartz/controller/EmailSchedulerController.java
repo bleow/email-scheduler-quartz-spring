@@ -17,6 +17,8 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.UUID;
 
+import static com.example.email_scheduler_quartz.constants.Constants.*;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -51,9 +53,9 @@ public class EmailSchedulerController {
 
     private JobDetail buildJobDetail(EmailRequest emailRequest) {
         JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("email", emailRequest.getEmail());
-        jobDataMap.put("subject", emailRequest.getSubject());
-        jobDataMap.put("body", emailRequest.getBody());
+        jobDataMap.put(EMAIL, emailRequest.getEmail());
+        jobDataMap.put(SUBJECT, emailRequest.getSubject());
+        jobDataMap.put(BODY, emailRequest.getBody());
 
         return JobBuilder.newJob(EmailJob.class)
                 .withIdentity(UUID.randomUUID().toString(), "email-job-group") // JobKey
